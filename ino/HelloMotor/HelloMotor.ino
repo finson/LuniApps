@@ -14,22 +14,28 @@
 
 // Set motor configuration and initial conditions
 
-int enablePin = 11;
-int in1Pin = 10;
-int in2Pin = 9;
-int pwm1Pin = 8;
-int switchPin = 7;
 int potPin = 0;
+int switchPin = 7;
+
+int enablePin = 8;
+int in2Pin = 9;
+int in1Pin = 10;
+int pwm1Pin = 11;
 
 void setup() {
 
  Serial.begin(115200);
  Serial.println("HelloMotor");
 
-  pinMode(in1Pin, OUTPUT);
-  pinMode(in2Pin, OUTPUT);
   pinMode(enablePin, OUTPUT);
   pinMode(switchPin, INPUT_PULLUP);
+
+  pinMode(in1Pin, OUTPUT);
+  pinMode(in2Pin, OUTPUT);
+  pinMode(pwm1Pin, OUTPUT);
+
+  digitalWrite(enablePin, 1);
+
 }
 
 void loop()
@@ -46,7 +52,8 @@ void loop()
 
 void setMotor(int speed, boolean reverse)
 {
-  analogWrite(enablePin, speed);
+  analogWrite(pwm1Pin, speed);
   digitalWrite(in1Pin, ! reverse);
   digitalWrite(in2Pin, reverse);
 }
+
